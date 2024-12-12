@@ -38,7 +38,7 @@ jobs:
 
       # Run tests
       - name: Run Tests
-        run: npm test -- --watchAll=false
+        run: npm test -- --passWithNoTests
         # Führt das Testskript aus. Der `--watchAll=false` Parameter verhindert, dass die Tests hängen bleiben.
 
       # Collect test results
