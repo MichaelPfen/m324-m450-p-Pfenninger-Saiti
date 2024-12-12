@@ -1,0 +1,71 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v3
+        # Dies checkt den aktuellen Code in der Pipeline aus.
+
+      # Install Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+        # Node.js Version wird festgelegt, um Konsistenz sicherzustellen.
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+        # Installiert alle benötigten npm-Pakete.
+
+      # Lint the code
+      - name: Run Linter
+        run: npm run lint
+        # Überprüft den Code mit einem Linter auf Konventionen und Fehler.
+
+      # Run tests
+      - name: Run Unit and Integration Tests
+        run: npm test
+        # Führt Unit- und Integrationstests aus und gibt die Ergebnisse aus.
+
+      # Collect test results
+      - name: Upload test results
+        if: always() # Testberichte werden hochgeladen, auch wenn Tests fehlschlagen.
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: ./test-results
+        # Testergebnisse werden in die Pipeline hochgeladen und gespeichert.
+
+      # Build the project
+      - name: Build project
+        run: npm run build
+        # Baut das Projekt und prüft, ob der Build erfolgreich ist.
+
+  report:
+    name: Generate Report
+    needs: build
+    runs-on: ubuntu-latest
+    if: failure()
+    # Dieser Schritt wird nur bei Fehlern im vorherigen Job ausgeführt.
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Output error message
+        run: echo "Pipeline failed. Check the logs for details."
+        # Gibt spezifische Fehlermeldungen in der Pipeline aus.
