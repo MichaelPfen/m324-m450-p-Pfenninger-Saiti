@@ -23,8 +23,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
-        # Node.js Version wird festgelegt, um Konsistenz sicherzustellen.
+          node-version: '20' # Verwende eine unterstützte Node.js-Version
+        # Node.js Version 20 wird für die Kompatibilität mit React verwendet.
 
       # Install dependencies
       - name: Install dependencies
@@ -34,12 +34,12 @@ jobs:
       # Lint the code
       - name: Run Linter
         run: npm run lint
-        # Überprüft den Code mit einem Linter auf Konventionen und Fehler.
+        # Führt das in package.json definierte ESLint-Skript aus, um den Code zu überprüfen.
 
       # Run tests
-      - name: Run Unit and Integration Tests
-        run: npm test
-        # Führt Unit- und Integrationstests aus und gibt die Ergebnisse aus.
+      - name: Run Tests
+        run: npm test -- --watchAll=false
+        # Führt das Testskript aus. Der `--watchAll=false` Parameter verhindert, dass die Tests hängen bleiben.
 
       # Collect test results
       - name: Upload test results
@@ -53,7 +53,7 @@ jobs:
       # Build the project
       - name: Build project
         run: npm run build
-        # Baut das Projekt und prüft, ob der Build erfolgreich ist.
+        # Führt den Build durch, um sicherzustellen, dass die Anwendung erfolgreich gebaut werden kann.
 
   report:
     name: Generate Report
