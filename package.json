@@ -7,10 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "react-scripts test"
+    "test": "vitest"
   },
   "dependencies": {
-    "jest": "^29.7.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "jsdom": "^25.0.1",
     "next": "15.0.3",
     "react": "18.3.1",
     "react-dom": "18.3.1",
@@ -19,7 +21,9 @@
     "uuid": "^11.0.3"
   },
   "devDependencies": {
+    "cypress": "^13.16.1",
     "eslint": "^8",
-    "eslint-config-next": "15.0.3"
+    "eslint-config-next": "15.0.3",
+    "vitest": "^2.1.8"
   }
 }

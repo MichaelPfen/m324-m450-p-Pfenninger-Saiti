@@ -7,9 +7,9 @@ import Header from "./Header";
 import InputTodo from "./InputTodo";
 import TodosList from "./TodosList";
 import styles from "./TodoContainer.module.css";
-
 const TodoContainer = () => {
   const [todos, setTodos] = useState([]);
+  const [sortOption, setSortOption] = useState(null); // Sortieroption: "priority", "title", oder null
 
   const getInitialTodos = () => {
     const temp = localStorage.getItem("todos");
@@ -39,25 +39,48 @@ const TodoContainer = () => {
     setTodos([...todos.filter((todo) => todo.id !== id)]);
   };
 
-  const addTodoItem = (title) => {
+  const addTodoItem = (title, priority = "mittel") => {
     const newTodo = {
       id: uuidv4(),
       title,
+      priority, // Neu: Priorität
       completed: false,
     };
     setTodos([...todos, newTodo]);
   };
 
-  const setUpdate = (updatedTitle, id) => {
+
+  const setUpdate = (field, value, id) => {
     setTodos(
-      todos.map((todo) => {
-        if (todo.id === id) {
-          todo.title = updatedTitle;
-        }
-        return todo;
-      })
+        todos.map((todo) => {
+          if (todo.id === id) {
+            return {
+              ...todo,
+              [field]: value, // Dynamische Aktualisierung des Feldes (title oder priority)
+            };
+          }
+          return todo;
+        })
     );
   };
+
+  const getSortedTodos = () => {
+    if (!sortOption) {
+      return todos; // Keine Sortierung
+    }
+
+    return [...todos].sort((a, b) => {
+      if (sortOption === "priority") {
+        const priorityOrder = { hoch: 1, mittel: 2, niedrig: 3 };
+        return priorityOrder[a.priority] - priorityOrder[b.priority];
+      }
+      if (sortOption === "title") {
+        return a.title.localeCompare(b.title);
+      }
+      return 0;
+    });
+  };
+
 
   // storing todos items
   useEffect(() => {
@@ -66,16 +89,33 @@ const TodoContainer = () => {
   }, [todos]);
 
   return (
-    <div className={styles.inner}>
-      <Header />
-      <InputTodo addTodoProps={addTodoItem} />
-      <TodosList
-        todos={todos}
-        handleChangeProps={handleChange}
-        deleteTodoProps={delTodo}
-        setUpdate={setUpdate}
-      />
-    </div>
+      <div className={styles.inner}>
+        <Header/>
+        <InputTodo addTodoProps={addTodoItem}/>
+        <TodosList
+            todos={getSortedTodos()}
+            handleChangeProps={handleChange}
+            deleteTodoProps={delTodo}
+            setUpdate={setUpdate}
+        />
+        <div className="button-container">
+          <button
+              onClick={() => setSortOption("priority")}
+          >
+            Nach Priorität sortieren
+          </button>
+          <button
+              onClick={() => setSortOption("title")}
+          >
+            Nach Titel sortieren
+          </button>
+          <button
+              onClick={() => setSortOption(null)}
+          >
+            Keine Sortierung
+          </button>
+        </div>
+      </div>
   );
 };
 
