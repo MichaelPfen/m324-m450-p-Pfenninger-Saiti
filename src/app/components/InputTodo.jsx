@@ -1,5 +1,5 @@
 /* eslint react/prop-types: 0 */
-import { useState } from "react";
+import React, { useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
 
 const InputTodo = (props) => {
@@ -52,8 +52,12 @@ const InputTodo = (props) => {
           <option value="mittel">Mittel</option>
           <option value="niedrig">Niedrig</option>
         </select>
-        <button data-set="add-todo-btn" className="input-submit">
-          <FaPlusCircle />
+        <button
+            data-set="add-todo-btn"
+            className="input-submit"
+            aria-label="add"
+        >
+          <FaPlusCircle/>
         </button>
       </form>
   );

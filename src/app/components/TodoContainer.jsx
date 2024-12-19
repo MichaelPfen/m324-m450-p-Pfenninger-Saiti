@@ -64,11 +64,6 @@ const TodoContainer = () => {
     );
   };
 
-  const sortedTodos = [...todos].sort((a, b) => {
-    const priorityOrder = { hoch: 1, mittel: 2, niedrig: 3 };
-    return priorityOrder[a.priority] - priorityOrder[b.priority];
-  });
-
   const getSortedTodos = () => {
     if (!sortOption) {
       return todos; // Keine Sortierung
