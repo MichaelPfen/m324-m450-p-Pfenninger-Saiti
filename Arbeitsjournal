@@ -10,6 +10,8 @@
 ### Reflexion
 Bei der Erstellung gab es etwas Probleme mit den Dependencies, jedoch
 war dies relativ schnell gefixed.
+Wir haben das Projekt aufgesetzt und nachgeschaut was wir genau brauchen und machen müssen.
+Danach haben wir noch diskutiert welche Test arten wir machen wollen zu welchen Stories.
 
 ## 19.12.2024
 
@@ -18,4 +20,10 @@ war dies relativ schnell gefixed.
 - Reflexionen geschrieben
 
 ### Reflexion
-Da ich es nicht gewohnt bin .md Dateien zu schreiben musste ich erstmal schauen, wie man diese schön informiert. Dafür habe ich eine gute Webseite gefunden namens markdowntohtml.com
+Da ich es nicht gewohnt bin .md Dateien zu schreiben musste ich erstmal schauen,
+wie man diese schön informiert. Dafür habe ich eine gute Webseite gefunden namens markdowntohtml.com
+Ich habe beim installieren der Dependencies ein Problem gehabt, da ich nicht wusste welche dependencies ich genau installieren muss.
+Am ende habe ich mich für vitest entschieden, dort hat es später funktioniert nachdem ich ausversehen das setupTest.js und vitest config im falschen verzeichnis
+gemacht habe. Nachdem ich diese auf die richtige Ebene verschoben habe, hat es funktioniert.
+
+
