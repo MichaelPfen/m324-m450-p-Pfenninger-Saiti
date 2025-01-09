@@ -16,6 +16,22 @@ const TodoItem = (props) => {
     }
   };
 
+    const highlightTodo = (dueDate) => {
+        if (!dueDate) return false;
+
+        const now = new Date();
+        const todoDate = new Date(dueDate);
+
+        const isToday = now.toDateString() === todoDate.toDateString();
+        const isWithin24Hours = todoDate - now > 0 && todoDate - now <= 24 * 60 * 60 * 1000;
+
+        return isToday || isWithin24Hours;
+    };
+
+  const highlightStyle = {
+    backgroundColor: highlightTodo(props.todo.dueDate) ? "yellow" : "transparent",
+  };
+
   const completedStyle = {
     fontStyle: "italic",
     color: "#595959",
@@ -47,50 +63,47 @@ const TodoItem = (props) => {
     niedrig: { color: "green" },
   };
 
-  return (
-      <li className={styles.item} data-type="todo-item">
-          <div onDoubleClick={handleEditing} style={viewMode}>
-              <input
-                  type="checkbox"
-                  className={styles.checkbox}
-                  checked={completed}
-                  onChange={() => props.handleChangeProps(id)}
-                  name="checkbox"
-              />
-              <span style={priorityStyle[props.todo.priority]}>
-        [{props.todo.priority}]
-      </span>
-              <span style={completed ? completedStyle : null}>{title}</span>
-              <button
-                  data-set="delete-todo-btn"
-                  onClick={() => props.deleteTodoProps(id)}
-              >
-                  <FaTrash style={{color: "orangered", fontSize: "16px"}}/>
-              </button>
-          </div>
-          <input
-              type="text"
-              style={editMode}
-              className={styles.textInput}
-              value={title}
-              onChange={(e) => {
-                  props.setUpdate('title', e.target.value, id);
-              }}
-              onKeyDown={handleUpdatedDone}
-          />
-          <select
-              value={props.todo.priority}
-              onChange={(e) => props.setUpdate('priority', e.target.value, id)} // priority ändern
-              className={styles.prioritySelect}
-          >
-              <option value="hoch">Hoch</option>
-              <option value="mittel">Mittel</option>
-              <option value="niedrig">Niedrig</option>
-          </select>
-
-      </li>
-
-  );
+    return (
+        <li className={styles.item} style={highlightStyle}>
+            <div onDoubleClick={handleEditing} style={viewMode}>
+                <input
+                    type="checkbox"
+                    className={styles.checkbox}
+                    checked={completed}
+                    onChange={() => props.handleChangeProps(id)}
+                />
+                <span style={priorityStyle[props.todo.priority]}>{`[${props.todo.priority}]`}</span>
+                <span style={completed ? completedStyle : null}>{title}</span><br/>
+                <span>{props.todo.dueDate ? `Fällig: ${props.todo.dueDate}` : ""}</span>
+                <button onClick={() => props.deleteTodoProps(id)}>
+                    <FaTrash style={{ color: "orangered", fontSize: "16px" }} />
+                </button>
+            </div>
+            <input
+                type="text"
+                style={editMode}
+                className={styles.textInput}
+                value={title}
+                onChange={(e) => props.setUpdate("title", e.target.value, id)}
+                onKeyDown={handleUpdatedDone}
+            />
+            <select
+                value={props.todo.priority}
+                onChange={(e) => props.setUpdate("priority", e.target.value, id)}
+                className={styles.prioritySelect}
+            >
+                <option value="hoch">Hoch</option>
+                <option value="mittel">Mittel</option>
+                <option value="niedrig">Niedrig</option>
+            </select>
+            <input
+                type="date"
+                value={props.todo.dueDate || ""}
+                onChange={(e) => props.setUpdate("dueDate", e.target.value, id)}
+                className={styles.dateInput}
+            />
+        </li>
+    );
 };
 
 export default TodoItem;
