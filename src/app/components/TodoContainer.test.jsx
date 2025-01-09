@@ -2,7 +2,7 @@ import React, {act} from "react";
 import {fireEvent, render, screen, waitFor} from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import InputTodo from "./InputTodo";
-import {test} from "vitest";
+import { test } from "vitest";
 import TodoContainer from "./TodoContainer";
 
 describe("TodoContainer Component", () => {
@@ -47,7 +47,7 @@ describe("TodoContainer Component", () => {
 
 describe("InputTodo Component", () => {
     test("renders input field and add button", () => {
-        render(<InputTodo addTodoProps={() => {}} />);
+        render(<InputTodo addTodoProps={() => { }} />);
         screen.debug();
         const addButton = screen.getByRole("button", { name: /add/i });
         expect(addButton).toBeInTheDocument();

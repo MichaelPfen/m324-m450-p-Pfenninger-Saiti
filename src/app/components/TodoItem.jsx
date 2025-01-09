@@ -17,17 +17,17 @@ const TodoItem = (props) => {
     }
   };
 
-    const highlightTodo = (dueDate) => {
-        if (!dueDate) return false;
+  const highlightTodo = (dueDate) => {
+    if (!dueDate) return false;
 
-        const now = new Date();
-        const todoDate = new Date(dueDate);
+    const now = new Date();
+    const todoDate = new Date(dueDate);
 
-        const isToday = now.toDateString() === todoDate.toDateString();
-        const isWithin24Hours = todoDate - now > 0 && todoDate - now <= 24 * 60 * 60 * 1000;
+    const isToday = now.toDateString() === todoDate.toDateString();
+    const isWithin24Hours = todoDate - now > 0 && todoDate - now <= 24 * 60 * 60 * 1000;
 
-        return isToday || isWithin24Hours;
-    };
+    return isToday || isWithin24Hours;
+  };
 
   const highlightStyle = {
     backgroundColor: highlightTodo(props.todo.dueDate) ? "yellow" : "transparent",
@@ -40,7 +40,7 @@ const TodoItem = (props) => {
     textDecoration: "line-through",
   };
 
-  const { completed, id, title } = props.todo;
+  const { completed, id, title, category } = props.todo;
 
   const viewMode = {};
   const editMode = {};
@@ -75,6 +75,7 @@ const TodoItem = (props) => {
                 />
                 <span style={priorityStyle[props.todo.priority]}>{`[${props.todo.priority}]`}</span>
                 <span style={completed ? completedStyle : null}>{title}</span><br/>
+                <span>{category && `Kategorie: ${category}`}</span> {`[${props.todo.category}]`}
                 <span>{props.todo.dueDate ? `Fällig: ${props.todo.dueDate}` : ""}</span>
                 <button onClick={() => props.deleteTodoProps(id)}>
                     <FaTrash style={{ color: "orangered", fontSize: "16px" }} />
@@ -103,6 +104,12 @@ const TodoItem = (props) => {
                 value={props.todo.dueDate || ""}
                 onChange={(e) => props.setUpdate("dueDate", e.target.value, id)}
                 className={styles.dateInput}
+            />
+            <input
+                type="text"
+                value={props.todo.category}
+                onChange={(e) => props.setUpdate("category", e.target.value, id)}  // Kategorie aktualisieren
+                className={styles.categoryInput}
             />
         </li>
     );
