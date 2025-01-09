@@ -47,6 +47,7 @@ jobs:
         with:
           name: test-results
           path: /.github/workflows/test-results
+          run: pwd
         # Testergebnisse werden in die Pipeline hochgeladen und gespeichert.
 
       # Build the project
