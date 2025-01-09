@@ -1,4 +1,5 @@
 /* eslint react/prop-types: 0 */
+import React from "react";
 import { useState, useEffect } from "react";
 import { FaTrash } from "react-icons/fa";
 import styles from "./TodoItem.module.css";
@@ -98,6 +99,7 @@ const TodoItem = (props) => {
             </select>
             <input
                 type="date"
+                name="dueDate"
                 value={props.todo.dueDate || ""}
                 onChange={(e) => props.setUpdate("dueDate", e.target.value, id)}
                 className={styles.dateInput}

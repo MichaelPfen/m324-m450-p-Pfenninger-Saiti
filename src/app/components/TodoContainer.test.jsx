@@ -1,5 +1,5 @@
-import React from "react";
-import { render, screen } from "@testing-library/react";
+import React, {act} from "react";
+import {fireEvent, render, screen, waitFor} from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import InputTodo from "./InputTodo";
 import {test} from "vitest";
@@ -89,5 +89,61 @@ describe("highlightTodo", () => {
 
     it("should return false if no date is provided", () => {
         expect(highlightTodo(null)).toBe(false);
+    });
+});
+
+describe("TodoContainer Component", () => {
+    it("loads initialTodos into state and renders them", () => {
+        const mockTodos = [
+            { id: 1, title: "Task Today", dueDate: new Date().toISOString(), priority: "mittel", completed: false },
+            { id: 2, title: "Task Tomorrow", dueDate: new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString(), priority: "hoch", completed: false },
+        ];
+
+        render(<TodoContainer initialTodos={mockTodos} />);
+
+        const todoToday = screen.getByText("Task Today");
+        const todoTomorrow = screen.getByText("Task Tomorrow");
+
+        expect(todoToday).toBeInTheDocument();
+        expect(todoTomorrow).toBeInTheDocument();
+    });
+});
+
+describe("TodoContainer Adding Todos", () => {
+    it("should add a new todo and highlight it if due today", () => {
+        const { container } = render(<TodoContainer />);
+
+        const inputField = screen.getByPlaceholderText("Add todo...");
+        const addButton = screen.getByRole("button", { name: /add/i });
+        const dateInput = container.querySelector('input[name="dueDate"]');
+
+        fireEvent.change(inputField, { target: { value: "New Task Today" } });
+        fireEvent.change(dateInput, { target: { value: new Date().toISOString().split("T")[0] } });
+        fireEvent.click(addButton);
+
+        const newTodo = screen.getByText("New Task Today");
+        expect(newTodo).toBeInTheDocument();
+        expect(newTodo.closest("li")).toHaveStyle("background-color: rgb(255, 255, 0);");
+    });
+});
+
+describe("TodoContainer Sorting", () => {
+    it("should sort todos by due date when sorting is applied", async () => {
+        const mockTodos = [
+            { id: 1, title: "Task Today", dueDate: new Date().toISOString(), priority: "mittel", completed: false },
+            { id: 2, title: "Task Tomorrow", dueDate: new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString(), priority: "hoch", completed: false },
+        ];
+
+        const { container } = render(<TodoContainer initialTodos={mockTodos} />);
+
+        const todoList = await waitFor(() => container.querySelector('[data-set="todo-list"]'));
+        expect(todoList).toBeInTheDocument();
+
+        const todoItems = todoList.querySelectorAll("li");
+        expect(todoItems).toHaveLength(mockTodos.length);
+
+        mockTodos.forEach((todo, index) => {
+            expect(todoItems[index]).toHaveTextContent(todo.title);
+        });
     });
 });
