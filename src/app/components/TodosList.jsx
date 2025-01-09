@@ -1,5 +1,6 @@
 /* eslint react/prop-types: 0 */
 import TodoItem from "./TodoItem";
+import React from "react";
 
 const TodosList = (props) => (
   <ul data-set="todo-list">
