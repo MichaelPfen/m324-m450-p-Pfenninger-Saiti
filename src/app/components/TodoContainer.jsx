@@ -7,9 +7,9 @@ import Header from "./Header";
 import InputTodo from "./InputTodo";
 import TodosList from "./TodosList";
 import styles from "./TodoContainer.module.css";
-const TodoContainer = () => {
-  const [todos, setTodos] = useState([]);
-  const [sortOption, setSortOption] = useState(null); // Sortieroption: "priority", "title", oder null
+const TodoContainer = ({ initialTodos = [] }) => {
+  const [todos, setTodos] = useState(initialTodos);
+  const [sortOption, setSortOption] = useState(null);
   const [categoryFilter, setCategoryFilter] = useState("");  // Filter für Kategorie
 
   const getInitialTodos = () => {
@@ -19,7 +19,7 @@ const TodoContainer = () => {
   };
 
   useEffect(() => {
-    getInitialTodos()
+    getInitialTodos();
   }, []);
 
   const handleChange = (id) => {
