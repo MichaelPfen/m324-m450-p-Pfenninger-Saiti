@@ -75,7 +75,7 @@ const TodoItem = (props) => {
                 />
                 <span style={priorityStyle[props.todo.priority]}>{`[${props.todo.priority}]`}</span>
                 <span style={completed ? completedStyle : null}>{title}</span><br/>
-                <span>{category && `Kategorie: ${category}`}</span> {`[${props.todo.category}]`}
+                <span>{category && `Kategorie: ${category} `}</span>
                 <span>{props.todo.dueDate ? `Fällig: ${props.todo.dueDate}` : ""}</span>
                 <button onClick={() => props.deleteTodoProps(id)}>
                     <FaTrash style={{ color: "orangered", fontSize: "16px" }} />
