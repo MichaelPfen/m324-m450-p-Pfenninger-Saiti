@@ -43,7 +43,7 @@ jobs:
       # Collect test results
       - name: Upload test results
         if: always() # Testberichte werden hochgeladen, auch wenn Tests fehlschlagen.
-        run: pwd && ls -la
+        run: ls -la ./.github/workflows
         # Testergebnisse werden in die Pipeline hochgeladen und gespeichert.
 
       # Build the project
