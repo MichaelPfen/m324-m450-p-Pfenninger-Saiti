@@ -46,7 +46,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: test-results
-          path: ./test-results
+          path: /.github/workflows/test-results
         # Testergebnisse werden in die Pipeline hochgeladen und gespeichert.
 
       # Build the project
