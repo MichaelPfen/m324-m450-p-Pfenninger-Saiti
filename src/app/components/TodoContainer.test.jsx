@@ -53,3 +53,41 @@ describe("InputTodo Component", () => {
         expect(addButton).toBeInTheDocument();
     });
 });
+
+const highlightTodo = (dueDate) => {
+    if (!dueDate) return false;
+
+    const now = new Date();
+    const todoDate = new Date(dueDate);
+
+    const isToday = now.toDateString() === todoDate.toDateString();
+    const isWithin24Hours = todoDate - now > 0 && todoDate - now <= 24 * 60 * 60 * 1000;
+
+    return isToday || isWithin24Hours;
+};
+
+describe("highlightTodo", () => {
+    it("should return true if the date is today", () => {
+        const today = new Date().toISOString().split("T")[0];
+        expect(highlightTodo(today)).toBe(true);
+    });
+
+    it("should return true if the date is within the next 24 hours", () => {
+        const within24Hours = new Date(new Date().getTime() + 23 * 60 * 60 * 1000).toISOString();
+        expect(highlightTodo(within24Hours)).toBe(true);
+    });
+
+    it("should return false if the date is more than 24 hours in the future", () => {
+        const moreThan24Hours = new Date(new Date().getTime() + 25 * 60 * 60 * 1000).toISOString();
+        expect(highlightTodo(moreThan24Hours)).toBe(false);
+    });
+
+    it("should return false if the date is in the past", () => {
+        const pastDate = new Date(new Date().getTime() - 24 * 60 * 60 * 1000).toISOString();
+        expect(highlightTodo(pastDate)).toBe(false);
+    });
+
+    it("should return false if no date is provided", () => {
+        expect(highlightTodo(null)).toBe(false);
+    });
+});

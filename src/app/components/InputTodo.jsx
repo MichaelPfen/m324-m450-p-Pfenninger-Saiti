@@ -6,6 +6,7 @@ const InputTodo = (props) => {
   const [inputText, setInputText] = useState({
     title: "",
     priority: "mittel",
+    dueDate: ""
   });
 
   const onChange = (e) => {
@@ -18,10 +19,11 @@ const InputTodo = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (inputText.title.trim()) {
-      props.addTodoProps(inputText.title, inputText.priority); // Priorität übergeben
+      props.addTodoProps(inputText.title, inputText.priority, inputText.dueDate);
       setInputText({
         title: "",
         priority: "mittel",
+        dueDate: ""
       });
     } else {
       alert("Please write item");
@@ -52,6 +54,13 @@ const InputTodo = (props) => {
           <option value="mittel">Mittel</option>
           <option value="niedrig">Niedrig</option>
         </select>
+        <input
+            type="date"
+            name="dueDate"
+            value={inputText.dueDate}
+            onChange={onChange}
+            className="input-date"
+        />
         <button
             data-set="add-todo-btn"
             className="input-submit"
