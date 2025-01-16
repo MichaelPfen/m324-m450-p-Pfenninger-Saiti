@@ -1,0 +1,31 @@
+Selbsteinschätzung
+1.	Automatisierung:
+  a.	Erfüllt
+  b.	Die CI/CD-Pipeline ist definiert und automatisiert den Build-, Linting-, und Testprozess über GitHub Actions.
+2.	Testintegration:
+  a.	Erfüllt
+  b.	Automatisierte Tests (Unit, Integration, E2E) sind in der Pipeline integriert und dokumentieren Ergebnisse.
+3.	Code-Qualität:
+  a.	Erfüllt
+  b.	Ein Linter ist integriert und überprüft den Code auf Fehler und Standards.
+4.	Versionskontrolle:
+  a.	Erfüllt
+  b.	Systematische Git-Nutzung mit Branches, Commits und Merges ist in der Pipeline und Codeentwicklung sichtbar.
+5.	Umsetzung User-Stories
+  a.	Erfüllt
+  b.	Alle User Stories wurden erfüllt
+6.	Testkonzept:
+  a.	Erfüllt
+  b.	Ein umfassendes Testkonzept liegt vor, das verschiedene Testarten (Unit, Integration, E2E) sowie deren Ziele beschreibt.
+7.	Testabdeckung:
+  a.	Erfüllt
+  b.	Wir haben mind. 80% des umgesetzten getestet
+8.	Testumsetzung:
+  a.	Erfüllt
+  b.	Automatisierte Tests sind korrekt implementiert und führen reproduzierbare Ergebnisse.
+9.	Dokumentation:
+  a.	Erfüllt
+  b.	Testergebnisse und Fehler werden dokumentiert.
+10.	Umsetzung der User-Stories:
+  a.	Erfüllt: 30 Punkte
+  b.	Alle User Stories wurden umgesetzt.
