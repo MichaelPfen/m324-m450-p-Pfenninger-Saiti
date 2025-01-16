@@ -8,10 +8,10 @@
 - Angefangen Tests zu erstellen
 
 ### Reflexion
-Bei der Erstellung gab es etwas Probleme mit den Dependencies, jedoch
-war dies relativ schnell gefixed.
-Wir haben das Projekt aufgesetzt und nachgeschaut was wir genau brauchen und machen müssen.
-Danach haben wir noch diskutiert welche Test arten wir machen wollen zu welchen Stories.
+Bei der Erstellung des Repositories und der Pipeline gab es einige Probleme mit den Dependencies, die wir jedoch relativ schnell gemeinsam beheben konnten.
+Als Gruppe haben wir uns darauf konzentriert, das Projekt aufzusetzen und im Team zu besprechen, welche Anforderungen und Aufgaben wir genau angehen müssen.
+Im Anschluss haben wir ausführlich diskutiert, welche Arten von Tests wir für die jeweiligen Stories umsetzen möchten. Die Diskussion hat uns geholfen,
+ein gemeinsames Verständnis über die Teststrategien zu entwickeln und Aufgaben sinnvoll aufzuteilen.
 
 ## 19.12.2024
 
@@ -20,10 +20,61 @@ Danach haben wir noch diskutiert welche Test arten wir machen wollen zu welchen 
 - Reflexionen geschrieben
 
 ### Reflexion
-Da ich es nicht gewohnt bin .md Dateien zu schreiben musste ich erstmal schauen,
-wie man diese schön informiert. Dafür habe ich eine gute Webseite gefunden namens markdowntohtml.com
-Ich habe beim installieren der Dependencies ein Problem gehabt, da ich nicht wusste welche dependencies ich genau installieren muss.
-Am ende habe ich mich für vitest entschieden, dort hat es später funktioniert nachdem ich ausversehen das setupTest.js und vitest config im falschen verzeichnis
-gemacht habe. Nachdem ich diese auf die richtige Ebene verschoben habe, hat es funktioniert.
+Da wir als Gruppe nicht daran gewöhnt waren, .md-Dateien zu schreiben, mussten wir uns zuerst darüber informieren, wie diese sinnvoll und 
+übersichtlich gestaltet werden können. Dabei sind wir auf eine hilfreiche Webseite namens markdowntohtml.com gestoßen, die uns dabei unterstützt hat.
+Während der Installation der Dependencies sind wir auf ein Problem gestoßen, da uns anfangs nicht klar war, welche Dependencies genau benötigt werden.
+Nach einigen Recherchen und Diskussionen in der Gruppe haben wir uns für vitest entschieden. Während der Einrichtung hatten wir jedoch Schwierigkeiten,
+da das setupTest.js und die vitest.config versehentlich in einem falschen Verzeichnis abgelegt wurden. Erst nachdem wir diese Dateien auf die korrekte Ebene
+verschoben haben, funktionierte alles wie gewünscht. Insgesamt hat uns die gemeinsame Bearbeitung geholfen, die Probleme systematisch zu lösen und
+aus den Fehlern zu lernen.
 
+## 09.01.2024
+
+### Tätigkeiten
+- User stories umgesetzt
+- Tests ergänzt
+
+### Reflexion
+Es war manchmal herausfordernd, mit ChatGPT bestimmten Code zu generieren, da dieser nicht wie erwartet funktionierte. 
+Nach mehreren Versuchen haben wir uns entschieden, den Code selbst zu schreiben.
+Außerdem haben wir festgestellt, dass noch einige Testfälle fehlen, die wir ergänzen mussten.
+
+## 16.01.2024
+
+### Tätigkeiten
+- Cypress test generieren
+- Testprotokoll erstellen
+
+### Reflexion
+Die Erstellung der Cypress-Tests erwies sich als anspruchsvoll, insbesondere das Selektieren der richtigen Elemente. Es hat einige Zeit in Anspruch genommen,
+die passenden Selektoren zu identifizieren und sicherzustellen, dass diese stabil und zuverlässig sind. Dabei mussten wir mehrfach Anpassungen vornehmen,
+um sicherzustellen, dass die Tests auch unter verschiedenen Bedingungen korrekt ausgeführt werden können.
+Das Erstellen des Testprotokolls verlief hingegen deutlich reibungsloser. Wir konnten die erforderlichen Schritte und Ergebnisse klar dokumentieren,
+da die meisten Informationen bereits vorlagen und gut strukturiert waren. Dies hat uns geholfen, einen guten Überblick über die durchgeführten Tests 
+zu behalten und die Ergebnisse transparent darzustellen.
+
+
+## Gesamte Reflexionen
+
+### Drin Saiti:
+Im Verlauf des Projekts konnte ich viel über die verschiedenen Aspekte der Softwareentwicklung lernen, angefangen bei der Einrichtung des Repositories und
+der Pipeline bis hin zur Erstellung und Automatisierung von Tests. Besonders herausfordernd fand ich die Arbeit mit Dependencies und das Debugging von Problemen,
+die durch falsch platzierte Konfigurationsdateien entstanden. Diese Schwierigkeiten haben mir gezeigt, wie wichtig eine klare Struktur und Organisation ist.
+
+Die Diskussionen in der Gruppe, insbesondere zur Teststrategie und den User Stories, waren für mich besonders wertvoll. Sie haben mir geholfen,
+ein tieferes Verständnis für die Anforderungen und den Nutzen von Tests zu entwickeln. Während der Arbeit mit ChatGPT habe ich gemerkt, dass es wichtig ist,
+flexibel zu bleiben und bei technischen Herausforderungen alternative Ansätze zu finden.
+
+### Michael Pfenninger:
+Das Projekt hat mir gezeigt, wie wichtig es ist, Herausforderungen strukturiert und im Team anzugehen. Besonders die anfänglichen Schwierigkeiten mit den
+Dependencies und der Pipeline haben mir bewusst gemacht, wie entscheidend eine gründliche Recherche und eine gute Planung sein können. Durch die Zusammenarbeit
+im Team konnten wir diese Hürden jedoch erfolgreich bewältigen.
+
+Ich habe gemerkt, dass das Arbeiten mit neuen Tools und Technologien, wie z. B. vitest oder Cypress, eine Lernkurve mit sich bringt.
+Trotzdem war es motivierend zu sehen, wie wir als Gruppe immer besser mit diesen Tools umgehen konnten. Die Diskussionen zur Teststrategie und die Umsetzung
+der User Stories haben mir geholfen, die Perspektive anderer Teammitglieder besser zu verstehen und davon zu profitieren.
+
+Besonders lehrreich war die Arbeit an den Cypress-Tests. Hier habe ich erkannt, wie wichtig die Wahl der richtigen Selektoren ist,
+um stabile und aussagekräftige Tests zu schreiben. Das Erstellen des Testprotokolls hat mir noch einmal gezeigt, wie hilfreich eine klare Dokumentation sein kann,
+um den Überblick zu behalten. Insgesamt war das Projekt für mich eine wertvolle Lernerfahrung, die mich sowohl technisch als auch im Teamwork weitergebracht hat.
 
