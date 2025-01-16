@@ -101,6 +101,8 @@ describe("TodoContainer Component", () => {
 
         render(<TodoContainer initialTodos={mockTodos} />);
 
+        screen.debug();
+
         const todoToday = screen.getByText("Task Today");
         const todoTomorrow = screen.getByText("Task Tomorrow");
 
@@ -145,5 +147,69 @@ describe("TodoContainer Sorting", () => {
         mockTodos.forEach((todo, index) => {
             expect(todoItems[index]).toHaveTextContent(todo.title);
         });
+    });
+});
+
+describe("Category Functionality in TodoContainer", () => {
+    it("should add a new todo with a category", () => {
+        const { container } = render(<TodoContainer initialTodos={[]} />);
+
+        // Zugriff auf das Eingabefeld für den Titel
+        const inputField = screen.getByPlaceholderText("Add todo...");
+        const addButton = screen.getByRole("button", { name: /add/i });
+
+        // Simuliere das Hinzufügen eines neuen Todos
+        fireEvent.change(inputField, { target: { value: "New Task with Category" } });
+
+        // Kategorie auswählen
+        const categoryDropdown = container.querySelector("select");
+        fireEvent.change(categoryDropdown, { target: { value: "Arbeit" } });
+
+        // Fälligkeitsdatum setzen (optional, falls vorhanden)
+        const dateInput = container.querySelector('input[name="dueDate"]');
+        fireEvent.change(dateInput, { target: { value: "2025-01-10" } });
+
+        // Button klicken, um das Todo hinzuzufügen
+        fireEvent.click(addButton);
+
+        // Prüfung, ob das neue Todo angezeigt wird
+        const newTodo = screen.getByText("New Task with Category");
+        expect(newTodo).toBeInTheDocument();
+
+        // Prüfung der Kategorie
+        const categoryText = screen.getByText(/Arbeit/);
+        expect(categoryText).toBeInTheDocument();
+    });
+
+    it("should show all todos when category filter is cleared", () => {
+        const mockTodos = [
+            { id: 1, title: "Work Task", category: "Arbeit", priority: "hoch", dueDate: "2025-01-09", completed: false },
+            { id: 2, title: "Private Task", category: "Privat", priority: "mittel", dueDate: "2025-01-10", completed: false },
+        ];
+
+        render(<TodoContainer initialTodos={mockTodos} />);
+
+        const filterSelect = screen.getByText("Alle Kategorien").closest("select");
+        fireEvent.change(filterSelect, { target: { value: "Arbeit" } }); // Filter auf "Arbeit" setzen
+        fireEvent.change(filterSelect, { target: { value: "" } }); // Filter löschen
+
+        // Beide Todos sollten sichtbar sein
+        expect(screen.getByText("Work Task")).toBeInTheDocument();
+        expect(screen.getByText("Private Task")).toBeInTheDocument();
+    });
+
+    it("should allow updating the category of a todo", () => {
+        const mockTodos = [
+            { id: 1, title: "Update Category Task", category: "Einkäufe", priority: "niedrig", dueDate: "2025-01-11", completed: false },
+        ];
+
+        render(<TodoContainer initialTodos={mockTodos} />);
+
+        const categoryInput = screen.getByDisplayValue("Einkäufe"); // Aktuelle Kategorie
+        fireEvent.change(categoryInput, { target: { value: "Arbeit" } });
+
+        // Kategorie sollte aktualisiert sein
+        const updatedCategorySpan = screen.getByText(/Kategorie: Arbeit/);
+        expect(updatedCategorySpan).toBeInTheDocument();
     });
 });

@@ -51,13 +51,6 @@ const TodoItem = (props) => {
     editMode.display = "none";
   }
 
-  useEffect(
-    () => () => {
-      console.log("Cleaning up...");
-    },
-    []
-  );
-
   const priorityStyle = {
     hoch: { color: "red", fontWeight: "bold" },
     mittel: { color: "orange" },
