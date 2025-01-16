@@ -75,6 +75,7 @@ const InputTodo = (props) => {
         data-set="add-todo-btn"
         className="input-submit"
         aria-label="add"
+        type={"submit"}
       >
         <FaPlusCircle/>
       </button>
