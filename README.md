@@ -1,128 +1,105 @@
 # Testkonzept für die Todo-App
 
-Das Testkonzept für die Todo-App definiert die Teststrategie, Testbereiche, Testarten und die zu verwendenden Tools und Frameworks. Ziel ist es, die Qualität der Anwendung sicherzustellen, indem alle Funktionalitäten gründlich geprüft werden.
+## 1. Einleitung
+Dieses Testkonzept beschreibt die Vorgehensweise und Struktur für das Testen der Todo-App im Rahmen des Projekts Module 450 & 324. Ziel ist es, die Softwarequalität zu gewährleisten und systematische Tests gemäß der Testpyramide umzusetzen.
 
----
-
-## 1. Zielsetzung
-
-- Sicherstellen, dass alle Funktionen der Todo-App gemäß den Anforderungen und Spezifikationen korrekt arbeiten.
-- Identifizieren und Beheben von Bugs oder Inkonsistenzen in der Anwendung.
-- Sicherstellen, dass die Benutzererfahrung reibungslos und intuitiv ist.
-
----
-
-## 2. Testbereiche
-
-### 2.1. Funktionale Tests
-| **Komponenten**   | **Tests**                                                                 |
-|-------------------|--------------------------------------------------------------------------|
-| `InputTodo`       | Testen von Eingabevalidierungen, Hinzufügen von Aufgaben                |
-| `TodoContainer`   | Testen von Sortierung, Filterung, Highlighting und Rendering            |
-
-| **Features**      | **Tests**                                                                 |
-|-------------------|--------------------------------------------------------------------------|
-| Hinzufügen        | Hinzufügen neuer Todos mit Titel, Priorität und optionalen Kategorien   |
-| Löschen           | Entfernen von Todos aus der Liste                                       |
-| Bearbeiten        | Aktualisieren bestehender Todos                                        |
-| Filtern           | Todos nach Kategorien filtern                                           |
-| Sortieren         | Todos nach Prioritäten sortieren                                        |
-| Highlighting      | Markieren von Todos, die bestimmte Bedingungen erfüllen (z. B. Fälligkeitsdatum) |
-
-### 2.2. Nicht-funktionale Tests
-| **Bereich**        | **Beschreibung**                                                         |
-|--------------------|-------------------------------------------------------------------------|
-| Performance        | Reaktionszeit beim Hinzufügen, Filtern und Sortieren von Todos         |
-| Usability          | Überprüfung der Benutzerfreundlichkeit (UX/UI)                        |
-| Kompatibilität     | Testen der App in verschiedenen Browsern (Chrome, Firefox, Edge, Safari) |
-
----
+## 2. Testziele
+- Sicherstellen, dass die App die Anforderungen der User-Stories erfüllt.
+- Validierung der Funktionalität durch verschiedene Testarten (Unit, Integration, End-to-End).
+- Sicherstellung der Wartbarkeit und Erweiterbarkeit durch automatisierte Tests.
 
 ## 3. Testarten
+### 3.1 Unit-Tests
+Testen einzelner Funktionen oder Methoden isoliert.
+- Beispiel: Prüfung der Funktion `highlightTodo`, ob sie korrekt die Farbmarkierung für fällige Aufgaben setzt.
 
-### 3.1. Unit Tests
-- **Tools:** Jest, React Testing Library
-- **Fokus:**
-  - Einzelne Funktionen und Komponenten, wie:
-    - `addTodoItem`: Fügt eine Aufgabe hinzu.
-    - `getSortedTodos`: Sortiert Aufgaben basierend auf Priorität.
-    - `highlightTodo`: Markiert Todos abhängig von Bedingungen.
+### 3.2 Integrationstests
+Testen des Zusammenspiels mehrerer Module.
+- Beispiel: Validierung der Sortierfunktion `getSortedTodos` in Kombination mit der Benutzeroberfläche.
 
-### 3.2. Integrationstests
-- **Tools:** React Testing Library
-- **Fokus:**
-  - Zusammenspiel mehrerer Komponenten, z. B. `InputTodo` und `TodoContainer`.
-  - Übergabe von Props und Zustandshandhabung.
+### 3.3 End-to-End-Tests (E2E)
+Simulieren des Benutzerverhaltens und Validieren der gesamten App.
+- Beispiel: Prüfen, ob ein Benutzer erfolgreich eine Aufgabe hinzufügen, bearbeiten und löschen kann.
 
-### 3.3. End-to-End (E2E) Tests
-- **Tools:** Cypress
-- **Fokus:**
-  - Vollständige Benutzerabläufe:
-    - Todos hinzufügen, löschen, bearbeiten.
-    - Filter und Sortierungen anwenden.
-    - Validierung der App-Funktionen im Browser.
+## 4. Testpyramide
+Die Tests werden nach folgender Priorität umgesetzt:
+- **Unit-Tests**: 70 %
+- **Integrationstests**: 20 %
+- **E2E-Tests**: 10 %
 
----
+## 5. Testfälle
+Die Testfälle sind in der folgenden Tabelle dokumentiert:
 
-## 4. Teststrategie
+| ID  | Testart       | Testbeschreibung                                                                 | Vorbedingung                               | Eingaben                                        | Erwartetes Ergebnis                                         | Nachbedingung                                   |
+|-----|---------------|--------------------------------------------------------------------------------|-------------------------------------------|------------------------------------------------|------------------------------------------------------------|------------------------------------------------|
+| T1  | Unit-Test     | Überprüfung der Funktion `addTodoItem` fügt eine Aufgabe hinzu.                | Leere Todo-Liste                           | Titel: "Testaufgabe", Priorität: "hoch"       | Aufgabe wird korrekt mit ID, Titel und Priorität hinzugefügt | Todo-Liste enthält die Aufgabe                |
+| T2  | Unit-Test     | Sortierung der Todos nach Priorität mit `getSortedTodos`.                       | Liste mit Todos unterschiedlicher Priorität | Keine                                          | Aufgaben werden korrekt nach Priorität sortiert            | Sortierte Liste                                |
+| T3  | Integration   | `InputTodo` rendert Eingabefeld und Button.                                     | App ist geladen                            | Keine                                          | Eingabefeld und Button sind sichtbar                        | UI-Elemente korrekt gerendert                 |
+| T4  | Integration   | Highlighting einer Aufgabe mit Fälligkeitsdatum heute.                         | Leere Todo-Liste                           | Aufgabe mit Fälligkeitsdatum heute hinzufügen | Aufgabe wird hervorgehoben                                 | Aufgabe ist hervorgehoben                     |
+| T5  | E2E-Test      | Hinzufügen einer neuen Aufgabe über die Benutzeroberfläche.                    | App ist geladen                            | Titel: "Neue Aufgabe", Priorität: "mittel"  | Aufgabe erscheint in der Liste                              | Aufgabe ist in der Todo-Liste enthalten        |
+| T6  | E2E-Test      | Markieren einer Aufgabe als erledigt.                                           | Aufgabe in der Liste                       | Checkbox markieren                             | Aufgabe wird als erledigt angezeigt                         | Aufgabe ist als erledigt markiert             |
+| T7  | E2E-Test      | Löschen einer Aufgabe.                                                          | Aufgabe in der Liste                       | Löschen-Button klicken                         | Aufgabe wird aus der Liste entfernt                         | Aufgabe ist nicht mehr in der Todo-Liste      |
+| T8  | E2E-Test      | Filtern der Aufgaben nach Kategorie.                                            | Aufgaben mit unterschiedlichen Kategorien  | Filter "Arbeit" auswählen                      | Nur Aufgaben der Kategorie "Arbeit" sind sichtbar           | Gefilterte Liste                               |
+| T9  | E2E-Test      | Sortieren der Aufgaben nach Fälligkeitsdatum.                                   | Aufgaben mit unterschiedlichen Deadlines   | Sortierbutton klicken                          | Aufgaben sind nach Deadlines sortiert                      | Aufgaben sind korrekt sortiert                |
 
-### 4.1. Testabdeckung
-| **Bereich**          | **Ziel**                                                              |
-|----------------------|----------------------------------------------------------------------|
-| Funktionalität       | 100% Testabdeckung für alle kritischen Funktionen                   |
-| Benutzerflüsse       | Abdecken der wichtigsten User Journeys                              |
-| Randfälle            | Testen von Randbedingungen (z. B. leere Eingaben, ungültige Daten)  |
+## 6. Testumsetzung
+- **Testframeworks**: Jest, Testing Library, Cypress.
+- **Testdurchführung**: Alle Unit- und Integrationstests werden lokal ausgeführt. E2E-Tests werden zusätzlich in der GitHub-Pipeline integriert.
 
-### 4.2. Testfälle
-| **Testtyp**          | **Beispiele**                                                        |
-|----------------------|----------------------------------------------------------------------|
-| Unit Testfälle       | Hinzufügen, Sortieren und Highlighten von Todos                     |
-| Integration Testfälle| Zusammenspiel von `InputTodo` und `TodoContainer`                   |
-| E2E Testfälle        | Benutzer öffnet die App, erstellt ein Todo, markiert es als erledigt und löscht es |
+## 7. Testabdeckung
+Mindestens 80 % der User-Story-Anforderungen werden durch Tests abgedeckt:
+- **User-Story 1**: Tests für Priorisierung.
+- **User-Story 2**: Tests für Kategorien.
+- **User-Story 3**: Tests für Fälligkeitsdatum.
 
----
+## 8. Dokumentation der Testergebnisse
+Die Testergebnisse werden automatisch in der GitHub Actions-Übersicht protokolliert. Fehlerberichte werden bei fehlschlagenden Tests generiert und analysiert.
 
-## 5. Tools und Frameworks
+## 9. Fazit
+Durch dieses Testkonzept wird eine systematische Teststrategie umgesetzt, die sowohl die Qualität als auch die Wartbarkeit der Todo-App sicherstellt.
 
-| **Testart**          | **Tools**                                                            |
-|----------------------|----------------------------------------------------------------------|
-| Unit & Integration   | Vitest, Jest, React Testing Library                                  |
-| End-to-End Testing   | Cypress                                                             |
-| Testdatengenerierung | Mock-Daten für Unit- und Integrationstests                          |
+# Testprotokoll
 
----
-
-## 6. Testumgebung
-
-| **Aspekt**           | **Details**                                                         |
-|----------------------|----------------------------------------------------------------------|
-| Browser              | Chrome, Firefox, Edge, Safari                                       |
-| Plattformen          | Desktop (Windows, macOS), Mobile (iOS, Android – falls relevant)    |
-| CI/CD Pipeline       | Automatische Ausführung der Tests bei Änderungen im Code (GitHub Actions, Jenkins o. Ä.) |
+## Projekt: Todo-App Testing
+**Datum:** 16.01.2025  
+**Ersteller:** Drin Saiti
 
 ---
 
-## 7. Testdurchführung
+## Übersicht der Testfälle
 
-### 7.1. Vorbedingungen
-- Testumgebung einrichten.
-- Sicherstellen, dass alle Abhängigkeiten korrekt installiert sind.
+| **Testfall-ID** | **Komponente**       | **Beschreibung**                                          | **Vorbedingungen**                                | **Eingabe**                                     | **Erwartetes Ergebnis**                                                                                                 | **Nachbedingungen**                              |
+|-----------------|----------------------|----------------------------------------------------------|--------------------------------------------------|------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|
+| TC-01           | TodoContainer        | Hinzufügen einer Aufgabe                                 | Leere Liste von Todos                            | Aufgabe "Testaufgabe", Priorität "hoch"       | Aufgabe wird zur Liste hinzugefügt, Liste enthält 1 Element, Aufgabe entspricht der Eingabe                            | Liste enthält die neue Aufgabe                   |
+| TC-02           | TodoContainer        | Sortierung der Aufgaben nach Priorität                  | Aufgaben mit Priorität: niedrig, mittel, hoch    | Keine                                           | Aufgaben werden in der Reihenfolge: hoch, mittel, niedrig sortiert                                                    | Aufgabenliste ist sortiert                       |
+| TC-03           | InputTodo            | Rendering des Eingabefeldes und Buttons                 | Komponente wird gerendert                        | Keine                                           | Eingabefeld und Button mit Text "Add" sind sichtbar                                                                    | UI ist korrekt gerendert                         |
+| TC-04           | highlightTodo        | Hervorhebung von Aufgaben, die heute fällig sind        | Datum der Aufgabe: heute                         | Datum "2025-01-16"                             | Funktion gibt `true` zurück                                                                                           | Keine                                            |
+| TC-05           | highlightTodo        | Keine Hervorhebung für Aufgaben ohne Datum              | Aufgabe ohne Fälligkeitsdatum                    | Kein Datum                                      | Funktion gibt `false` zurück                                                                                          | Keine                                            |
+| TC-06           | TodoContainer        | Laden von initialen Aufgaben                            | Initiale Aufgabenliste                           | Aufgabenliste mit 2 Elementen                   | Beide Aufgaben sind sichtbar                                                                                          | UI zeigt initiale Aufgaben                       |
+| TC-07           | TodoContainer        | Hinzufügen einer neuen Aufgabe mit Highlighting         | Leere Aufgabenliste                              | Aufgabe "New Task", Datum: heute               | Aufgabe wird hinzugefügt und farblich hervorgehoben                                                                    | Neue Aufgabe ist sichtbar und hervorgehoben      |
+| TC-08           | TodoContainer        | Sortieren von Aufgaben nach Fälligkeitsdatum            | Aufgaben mit verschiedenen Fälligkeitsdaten     | Keine                                           | Aufgaben sind in aufsteigender Reihenfolge nach Fälligkeitsdatum sortiert                                              | Aufgabenliste ist sortiert                       |
+| TC-09           | TodoContainer        | Aufgaben mit Kategorien filtern                         | Aufgaben mit Kategorien Arbeit, Privat           | Filter auf "Arbeit" setzen                     | Nur Aufgaben der Kategorie "Arbeit" sind sichtbar                                                                      | Liste zeigt nur gefilterte Aufgaben              |
+| TC-10           | Todo App (E2E)       | Hinzufügen, Markieren und Löschen eines Todos           | App gestartet                                    | Aufgabe hinzufügen, Checkbox markieren, löschen | Aufgabe wird hinzugefügt, als erledigt markiert und anschließend erfolgreich gelöscht                                 | Liste ist leer                                   |
 
-### 7.2. Testausführung
-1. **Unit Tests:** Lokale Ausführung mit Vitest.
-2. **Integration Tests:** Lokale Ausführung und CI-Pipeline.
-3. **E2E Tests:** Cypress-Tests in einer Testumgebung.
+---
 
-### 7.3. Testprotokoll
-- Automatisches Protokollieren von Testergebnissen in der CI/CD Pipeline.
-- Berichte über Testabdeckung.
+## Testergebnisse
+
+| **Testfall-ID** | **Ergebnis**  | **Bemerkungen**                                                               |
+|-----------------|--------------|-------------------------------------------------------------------------------|
+| TC-01           | Erfolgreich   | Aufgabe wurde korrekt zur Liste hinzugefügt                                   |
+| TC-02           | Erfolgreich   | Aufgaben wurden korrekt nach Priorität sortiert                               |
+| TC-03           | Erfolgreich   | Eingabefeld und Button wurden korrekt gerendert                               |
+| TC-04           | Erfolgreich   | Aufgaben mit heutigem Datum wurden korrekt hervorgehoben                      |
+| TC-05           | Erfolgreich   | Aufgaben ohne Datum wurden nicht hervorgehoben                                |
+| TC-06           | Erfolgreich   | Initiale Aufgaben wurden erfolgreich geladen                                  |
+| TC-07           | Erfolgreich   | Neue Aufgabe wurde hinzugefügt und korrekt hervorgehoben                      |
+| TC-08           | Erfolgreich   | Aufgaben wurden korrekt nach Fälligkeitsdatum sortiert                        |
+| TC-09           | Erfolgreich   | Filterfunktion für Kategorien hat korrekt funktioniert                         |
+| TC-10           | Erfolgreich   | End-to-End-Test: Hinzufügen, Markieren und Löschen hat wie erwartet funktioniert |
 
 ---
 
-## 8. Erfolgskriterien
+**Zusammenfassung:**  
+Alle Tests wurden erfolgreich durchgeführt, und die Akzeptanzkriterien der User-Stories wurden erfüllt.
 
-- Alle kritischen Tests bestehen (keine Blocker).
-- Funktionale Tests decken alle Haupt-Features ab.
-- E2E Tests simulieren erfolgreich reale Benutzerabläufe.
-
----
