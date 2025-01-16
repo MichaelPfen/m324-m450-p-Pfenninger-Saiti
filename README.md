@@ -1,6 +1,6 @@
 # Testkonzept für die Todo-App
 
-Dieses Dokument beschreibt das Testkonzept für die Todo-App. Ziel ist es, die Qualität der Anwendung sicherzustellen, indem alle Funktionalitäten gründlich geprüft werden.
+Das Testkonzept für die Todo-App definiert die Teststrategie, Testbereiche, Testarten und die zu verwendenden Tools und Frameworks. Ziel ist es, die Qualität der Anwendung sicherzustellen, indem alle Funktionalitäten gründlich geprüft werden.
 
 ---
 
@@ -15,49 +15,48 @@ Dieses Dokument beschreibt das Testkonzept für die Todo-App. Ziel ist es, die Q
 ## 2. Testbereiche
 
 ### 2.1. Funktionale Tests
+| **Komponenten**   | **Tests**                                                                 |
+|-------------------|--------------------------------------------------------------------------|
+| `InputTodo`       | Testen von Eingabevalidierungen, Hinzufügen von Aufgaben                |
+| `TodoContainer`   | Testen von Sortierung, Filterung, Highlighting und Rendering            |
 
-#### Komponenten
-- **InputTodo**: Testen von Eingabevalidierungen, Hinzufügen von Aufgaben.
-- **TodoContainer**: Testen von Sortierung, Filterung, Highlighting und Rendering.
-
-#### Features
-- Hinzufügen, Löschen und Bearbeiten von Todos.
-- Filtern nach Kategorien und Sortieren nach Prioritäten.
-- Markieren von Todos als erledigt.
-- Highlighten von Todos mit bestimmten Bedingungen (z. B. Fälligkeitsdatum).
+| **Features**      | **Tests**                                                                 |
+|-------------------|--------------------------------------------------------------------------|
+| Hinzufügen        | Hinzufügen neuer Todos mit Titel, Priorität und optionalen Kategorien   |
+| Löschen           | Entfernen von Todos aus der Liste                                       |
+| Bearbeiten        | Aktualisieren bestehender Todos                                        |
+| Filtern           | Todos nach Kategorien filtern                                           |
+| Sortieren         | Todos nach Prioritäten sortieren                                        |
+| Highlighting      | Markieren von Todos, die bestimmte Bedingungen erfüllen (z. B. Fälligkeitsdatum) |
 
 ### 2.2. Nicht-funktionale Tests
-
-#### Performance-Tests
-- Reaktionszeit beim Hinzufügen, Filtern und Sortieren von Todos.
-
-#### Usability-Tests
-- Überprüfung der Benutzerfreundlichkeit (UX/UI).
-
-#### Kompatibilität
-- Testen der App in verschiedenen Browsern (Chrome, Firefox, Edge, Safari).
+| **Bereich**        | **Beschreibung**                                                         |
+|--------------------|-------------------------------------------------------------------------|
+| Performance        | Reaktionszeit beim Hinzufügen, Filtern und Sortieren von Todos         |
+| Usability          | Überprüfung der Benutzerfreundlichkeit (UX/UI)                        |
+| Kompatibilität     | Testen der App in verschiedenen Browsern (Chrome, Firefox, Edge, Safari) |
 
 ---
 
 ## 3. Testarten
 
 ### 3.1. Unit Tests
-- **Tools**: Jest, React Testing Library
-- **Fokus**:
-  - Einzelne Funktionen und Komponenten:
+- **Tools:** Jest, React Testing Library
+- **Fokus:**
+  - Einzelne Funktionen und Komponenten, wie:
     - `addTodoItem`: Fügt eine Aufgabe hinzu.
     - `getSortedTodos`: Sortiert Aufgaben basierend auf Priorität.
     - `highlightTodo`: Markiert Todos abhängig von Bedingungen.
 
 ### 3.2. Integrationstests
-- **Tools**: React Testing Library
-- **Fokus**:
+- **Tools:** React Testing Library
+- **Fokus:**
   - Zusammenspiel mehrerer Komponenten, z. B. `InputTodo` und `TodoContainer`.
   - Übergabe von Props und Zustandshandhabung.
 
 ### 3.3. End-to-End (E2E) Tests
-- **Tools**: Cypress
-- **Fokus**:
+- **Tools:** Cypress
+- **Fokus:**
   - Vollständige Benutzerabläufe:
     - Todos hinzufügen, löschen, bearbeiten.
     - Filter und Sortierungen anwenden.
@@ -68,46 +67,38 @@ Dieses Dokument beschreibt das Testkonzept für die Todo-App. Ziel ist es, die Q
 ## 4. Teststrategie
 
 ### 4.1. Testabdeckung
-- **Funktionalität**: 100% Testabdeckung für alle kritischen Funktionen (z. B. Hinzufügen und Löschen von Todos).
-- **Benutzerflüsse**: Abdecken der wichtigsten User Journeys (z. B. neues Todo erstellen, nach Kategorie filtern).
-- **Randfälle**: Testen von Randbedingungen (z. B. leere Eingaben, ungültige Daten).
+| **Bereich**          | **Ziel**                                                              |
+|----------------------|----------------------------------------------------------------------|
+| Funktionalität       | 100% Testabdeckung für alle kritischen Funktionen                   |
+| Benutzerflüsse       | Abdecken der wichtigsten User Journeys                              |
+| Randfälle            | Testen von Randbedingungen (z. B. leere Eingaben, ungültige Daten)  |
 
 ### 4.2. Testfälle
-
-#### Unit Testfälle
-- Hinzufügen von Todos (Titel und Priorität).
-- Sortierung von Todos nach Priorität.
-- Highlighting basierend auf Fälligkeitsdatum.
-
-#### Integration Testfälle
-- Interaktion zwischen `InputTodo` und `TodoContainer`.
-- Prüfen, ob Todos korrekt im Container gerendert werden.
-
-#### E2E Testfälle
-- Benutzer öffnet die App, erstellt ein Todo, markiert es als erledigt und löscht es.
-- Anwenden von Filter- und Sortierfunktionen.
+| **Testtyp**          | **Beispiele**                                                        |
+|----------------------|----------------------------------------------------------------------|
+| Unit Testfälle       | Hinzufügen, Sortieren und Highlighten von Todos                     |
+| Integration Testfälle| Zusammenspiel von `InputTodo` und `TodoContainer`                   |
+| E2E Testfälle        | Benutzer öffnet die App, erstellt ein Todo, markiert es als erledigt und löscht es |
 
 ---
 
 ## 5. Tools und Frameworks
 
-### 5.1. Unit & Integration Testing
-- **Framework**: Vitest, Jest
-- **Bibliothek**: React Testing Library
-
-### 5.2. End-to-End Testing
-- **Framework**: Cypress
-
-### 5.3. Testdatengenerierung
-- Verwendung von Mock-Daten für Unit- und Integrationstests.
+| **Testart**          | **Tools**                                                            |
+|----------------------|----------------------------------------------------------------------|
+| Unit & Integration   | Vitest, Jest, React Testing Library                                  |
+| End-to-End Testing   | Cypress                                                             |
+| Testdatengenerierung | Mock-Daten für Unit- und Integrationstests                          |
 
 ---
 
 ## 6. Testumgebung
 
-- **Browser**: Chrome, Firefox, Edge, Safari.
-- **Plattformen**: Desktop (Windows, macOS), Mobile (iOS, Android – falls relevant).
-- **CI/CD Pipeline**: Automatische Ausführung der Tests bei Änderungen im Code (GitHub Actions, Jenkins o. Ä.).
+| **Aspekt**           | **Details**                                                         |
+|----------------------|----------------------------------------------------------------------|
+| Browser              | Chrome, Firefox, Edge, Safari                                       |
+| Plattformen          | Desktop (Windows, macOS), Mobile (iOS, Android – falls relevant)    |
+| CI/CD Pipeline       | Automatische Ausführung der Tests bei Änderungen im Code (GitHub Actions, Jenkins o. Ä.) |
 
 ---
 
@@ -118,9 +109,9 @@ Dieses Dokument beschreibt das Testkonzept für die Todo-App. Ziel ist es, die Q
 - Sicherstellen, dass alle Abhängigkeiten korrekt installiert sind.
 
 ### 7.2. Testausführung
-1. **Unit Tests**: Lokale Ausführung mit Vitest.
-2. **Integration Tests**: Lokale Ausführung und CI-Pipeline.
-3. **E2E Tests**: Cypress-Tests in einer Testumgebung.
+1. **Unit Tests:** Lokale Ausführung mit Vitest.
+2. **Integration Tests:** Lokale Ausführung und CI-Pipeline.
+3. **E2E Tests:** Cypress-Tests in einer Testumgebung.
 
 ### 7.3. Testprotokoll
 - Automatisches Protokollieren von Testergebnissen in der CI/CD Pipeline.
