@@ -100,9 +100,10 @@ const TodoItem = (props) => {
             />
             <input
                 type="text"
-                value={props.todo.category}
+                value={props.todo.category || ""}
                 onChange={(e) => props.setUpdate("category", e.target.value, id)}  // Kategorie aktualisieren
                 className={styles.categoryInput}
+                placeholder={"Kategorie"}
             />
         </li>
     );

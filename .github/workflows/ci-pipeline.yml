@@ -43,8 +43,11 @@ jobs:
         run: npm run lint
         # Führt ESLint aus.
 
-      - name: Run Tests
+      - name: Run vitest Tests
         run: npm test
+
+      - name: Run Cypress Tests
+        run: npx cypress run
 
       - name: Upload Test Results
         if: always() # Ergebnisse hochladen, auch bei Fehlern.
