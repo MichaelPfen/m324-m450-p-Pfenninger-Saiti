@@ -7,10 +7,11 @@ import Header from "./Header";
 import InputTodo from "./InputTodo";
 import TodosList from "./TodosList";
 import styles from "./TodoContainer.module.css";
+
 const TodoContainer = ({ initialTodos = [] }) => {
   const [todos, setTodos] = useState(initialTodos);
   const [sortOption, setSortOption] = useState(null);
-  const [categoryFilter, setCategoryFilter] = useState("");  // Filter für Kategorie
+  const [categoryFilter, setCategoryFilter] = useState("");
 
   const getInitialTodos = () => {
     const temp = localStorage.getItem("todos");
@@ -24,15 +25,15 @@ const TodoContainer = ({ initialTodos = [] }) => {
 
   const handleChange = (id) => {
     setTodos((prevState) =>
-      prevState.map((todo) => {
-        if (todo.id === id) {
-          return {
-            ...todo,
-            completed: !todo.completed,
-          };
-        }
-        return todo;
-      })
+        prevState.map((todo) => {
+          if (todo.id === id) {
+            return {
+              ...todo,
+              completed: !todo.completed,
+            };
+          }
+          return todo;
+        })
     );
   };
 
@@ -46,7 +47,7 @@ const TodoContainer = ({ initialTodos = [] }) => {
       title,
       priority,
       dueDate,
-      category,  // Kategorie hinzufügen
+      category,
       completed: false,
     };
     setTodos([...todos, newTodo]);
@@ -54,24 +55,28 @@ const TodoContainer = ({ initialTodos = [] }) => {
 
   const setUpdate = (field, value, id) => {
     setTodos(
-      todos.map((todo) => {
-        if (todo.id === id) {
-          return {
-            ...todo,
-            [field]: value, // Dynamische Aktualisierung des Feldes (title oder priority)
-          };
-        }
-        return todo;
-      })
+        todos.map((todo) => {
+          if (todo.id === id) {
+            return {
+              ...todo,
+              [field]: value,
+            };
+          }
+          return todo;
+        })
     );
   };
 
-  const getSortedTodos = () => {
+  const getVisibleTodos = () => {
+    const filteredTodos = categoryFilter
+        ? todos.filter((todo) => todo.category === categoryFilter)
+        : todos;
+
     if (!sortOption) {
-      return todos; // Keine Sortierung
+      return filteredTodos;
     }
 
-    return [...todos].sort((a, b) => {
+    return [...filteredTodos].sort((a, b) => {
       if (sortOption === "priority") {
         const priorityOrder = { hoch: 1, mittel: 2, niedrig: 3 };
         return priorityOrder[a.priority] - priorityOrder[b.priority];
@@ -79,32 +84,27 @@ const TodoContainer = ({ initialTodos = [] }) => {
       if (sortOption === "title") {
         return a.title.localeCompare(b.title);
       }
+      if (sortOption === "dueDate") {
+        return new Date(a.dueDate) - new Date(b.dueDate);
+      }
       return 0;
     });
   };
 
-  const getFilteredTodos = () => {
-    if (categoryFilter) {
-      return todos.filter((todo) => todo.category === categoryFilter);  // Filtern nach Kategorie
-    }
-    return todos;
-  };
-
-
-  // storing todos items
   useEffect(() => {
     const temp = JSON.stringify(todos);
     localStorage.setItem("todos", temp);
   }, [todos]);
 
-  return (
+return (
     <div className={styles.inner}>
       <Header />
       <InputTodo addTodoProps={addTodoItem} />
       <div className="filter-container">
         <select
-          value={categoryFilter}
-          onChange={(e) => setCategoryFilter(e.target.value)}
+            className="category-select"
+            value={categoryFilter}
+            onChange={(e) => setCategoryFilter(e.target.value)}
         >
           <option value="">Alle Kategorien</option>
           <option value="Arbeit">Arbeit</option>
@@ -112,28 +112,24 @@ const TodoContainer = ({ initialTodos = [] }) => {
           <option value="Einkäufe">Einkäufe</option>
           {/* Füge hier alle möglichen Kategorien hinzu */}
         </select>
-
       </div>
       <TodosList
-        todos={getFilteredTodos()}
-        handleChangeProps={handleChange}
-        deleteTodoProps={delTodo}
-        setUpdate={setUpdate}
+          todos={getVisibleTodos()}
+          handleChangeProps={handleChange}
+          deleteTodoProps={delTodo}
+          setUpdate={setUpdate}
       />
       <div className="button-container">
-        <button
-          onClick={() => setSortOption("priority")}
-        >
+        <button onClick={() => setSortOption("priority")}>
           Nach Priorität sortieren
         </button>
-        <button
-          onClick={() => setSortOption("title")}
-        >
+        <button onClick={() => setSortOption("title")}>
           Nach Titel sortieren
         </button>
-        <button
-          onClick={() => setSortOption(null)}
-        >
+        <button onClick={() => setSortOption("dueDate")}>
+          Nach Fälligkeitsdatum sortieren
+        </button>
+        <button onClick={() => setSortOption(null)}>
           Keine Sortierung
         </button>
       </div>
